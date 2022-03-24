@@ -1,30 +1,11 @@
-const tasks = [
-  {
-    id: 1,
-    title: 'Task 1',
-    description: 'Description 1',
-    completed: true,
-  },
-  {
-    id: 2,
-    title: 'Task 2',
-    description: 'Description 2',
-    completed: false,
-  },
-  {
-    id: 3,
-    title: 'Task 3',
-    description: 'Description 3',
-    completed: false,
-  },
-]
+const TaskModel = require('./task.model')
 
 function getAllTask() {
-  return tasks;
+  return TaskModel.find();
 }
 
-function getOneTask(id) {
-  const task = tasks.find(task => task.id === Number(id));
+async function getOneTask(id) {
+  const task = await TaskModel.findById(id)
 
   if (!task) {
     return null;
@@ -33,41 +14,39 @@ function getOneTask(id) {
   return task;
 }
 
-function deleteTask(id) {
-  const task = tasks.find(task => task.id === Number(id));
+async function deleteTask(id) {
+  const task = await TaskModel.findByIdAndDelete(id)
 
   if (!task) {
     return null;
   }
-
-  tasks.splice(tasks.indexOf(task), 1);
 
   return task;
 }
 
 function createTask(task) {
-  task.id = tasks.length + 1;
-  task.completed = false;
+  // task.id = tasks.length + 1;
+  // task.completed = false;
 
-  tasks.push(task);
+  // tasks.push(task);
 
   return task;
 }
 
 function updateTask(id, task) {
-  const oldTask = tasks.find(task => task.id === Number(id));
+  // const oldTask = tasks.find(task => task.id === Number(id));
 
-  if (!oldTask) {
-    return null;
-  }
+  // if (!oldTask) {
+  //   return null;
+  // }
 
-  tasks.forEach(oldTask => {
-    if (oldTask.id === Number(id)) {
-      oldTask.title = task.title;
-      oldTask.description = task.description;
-      oldTask.completed = task.completed;
-    }
-  });
+  // tasks.forEach(oldTask => {
+  //   if (oldTask.id === Number(id)) {
+  //     oldTask.title = task.title;
+  //     oldTask.description = task.description;
+  //     oldTask.completed = task.completed;
+  //   }
+  // });
 
   return task;
 }

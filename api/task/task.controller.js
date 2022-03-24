@@ -6,14 +6,15 @@ const {
   updateTask,
 } = require('./task.service')
 
-function handlerAllTask(req, res) {
-  const tasks = getAllTask();
+async function handlerAllTask(req, res) {
+  const tasks = await getAllTask();
+  console.log("🚀 ~ file: task.controller.js ~ line 11 ~ handlerAllTask ~ tasks", tasks)
   res.json(tasks);
 }
 
-function handlerOneTask(req, res) {
-  const id = req.params.id;
-  const task = getOneTask(id);
+async function handlerOneTask(req, res) {
+  const { id } = req.params;
+  const task = await getOneTask(id);
 
   if (!task) {
     res.status(404).json({ message: `Task not found with id: ${id}` });
@@ -22,9 +23,9 @@ function handlerOneTask(req, res) {
   }
 }
 
-function handlerDeleteTask(req, res) {
+async function handlerDeleteTask(req, res) {
   const id = req.params.id;
-  const task = deleteTask(id);
+  const task = await deleteTask(id);
 
   if (!task) {
     res.status(404).json({ message: `Task not found with id: ${id}` });
