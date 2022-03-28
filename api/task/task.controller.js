@@ -4,11 +4,10 @@ const {
   deleteTask,
   createTask,
   updateTask,
-} = require('./task.service')
+} = require('./task.service');
 
 async function handlerAllTask(req, res) {
   const tasks = await getAllTask();
-  console.log("🚀 ~ file: task.controller.js ~ line 11 ~ handlerAllTask ~ tasks", tasks)
   res.json(tasks);
 }
 
@@ -24,7 +23,7 @@ async function handlerOneTask(req, res) {
 }
 
 async function handlerDeleteTask(req, res) {
-  const id = req.params.id;
+  const { id } = req.params;
   const task = await deleteTask(id);
 
   if (!task) {
@@ -34,7 +33,7 @@ async function handlerDeleteTask(req, res) {
   }
 }
 
-function handlerCreateTask(req, res) {
+async function handlerCreateTask(req, res) {
   const newTask = req.body;
 
   if (!newTask.title) {
@@ -45,13 +44,13 @@ function handlerCreateTask(req, res) {
     res.status(400).json({ message: 'Description is required' });
   }
 
-  const task = createTask(newTask);
+  const task = await createTask(newTask);
 
   return res.status(201).json(task);
 }
 
-function handlerUpdateTask(req, res) {
-  const id = req.params.id;
+async function handlerUpdateTask(req, res) {
+  const { id } = req.params;
   const { body } = req;
 
   const task = updateTask(id, body);
@@ -69,4 +68,4 @@ module.exports = {
   handlerDeleteTask,
   handlerCreateTask,
   handlerUpdateTask,
-}
+};

@@ -6,14 +6,14 @@ const {
   handlerDeleteTask,
   handlerCreateTask,
   handlerUpdateTask,
-} = require('./task.controller')
+} = require('./task.controller');
 
 const router = Router();
 
-router.get('/', handlerAllTask)
-router.get('/:id', handlerOneTask)
-router.delete('/:id', handlerDeleteTask)
-router.post('/', handlerCreateTask)
-router.patch('/:id', handlerUpdateTask)
+router.get('/', handlerAllTask);
+router.get('/:id', handlerOneTask);
+router.delete('/:id', handlerDeleteTask);
+router.post('/', handlerCreateTask);
+router.patch('/:id', handlerUpdateTask);
 
 module.exports = router;

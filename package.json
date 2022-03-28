@@ -2,21 +2,28 @@
   "name": "top-v20-backend",
   "version": "1.0.0",
   "description": "top-v20-backend JavaScript server",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint --ext .js,.jsx ./",
+    "lint:fix": "eslint --ext .js,.jsx ./ --fix"
   },
   "keywords": [],
   "author": "@khriztianmoreno",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.8",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "eslint": "^8.12.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
     "nodemon": "^2.0.15"
   },
   "volta": {

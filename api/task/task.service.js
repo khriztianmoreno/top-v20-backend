@@ -1,54 +1,53 @@
-const TaskModel = require('./task.model')
+const Task = require('./task.model');
 
+/**
+ * Get all tasks
+ * @returns all tasks
+ */
 function getAllTask() {
-  return TaskModel.find();
+  return Task.find({}, { title: 1 });
 }
 
+/**
+ * Get task by id
+ * @param {string} id Indentifier of the task to be filtered
+ * @returns task
+ */
 async function getOneTask(id) {
-  const task = await TaskModel.findById(id)
-
-  if (!task) {
-    return null;
-  }
+  const task = await Task.findById(id)
+    .populate({ path: 'userId', select: 'firstName lastName' });
 
   return task;
 }
 
+/**
+ * Delete a task
+ * @param {String} id Identifier of the task to be deleted
+ * @returns task deleted
+ */
 async function deleteTask(id) {
-  const task = await TaskModel.findByIdAndDelete(id)
-
-  if (!task) {
-    return null;
-  }
-
+  const task = await Task.findByIdAndDelete(id);
   return task;
 }
 
+/**
+ * Create a new Task
+ * @param {Object} Task Task to create
+ * @returns Task created
+ */
 function createTask(task) {
-  // task.id = tasks.length + 1;
-  // task.completed = false;
-
-  // tasks.push(task);
-
-  return task;
+  return Task.create(task);
 }
 
-function updateTask(id, task) {
-  // const oldTask = tasks.find(task => task.id === Number(id));
-
-  // if (!oldTask) {
-  //   return null;
-  // }
-
-  // tasks.forEach(oldTask => {
-  //   if (oldTask.id === Number(id)) {
-  //     oldTask.title = task.title;
-  //     oldTask.description = task.description;
-  //     oldTask.completed = task.completed;
-  //   }
-  // });
-
-  return task;
+/**
+ * Update a task
+ * @param {string} id Indentifier of the task to be updated
+ * @param {Object} task Body of the task to be updated
+ * @returns task updated
+ */
+async function updateTask(id, task) {
+  const updatedTask = await Task.findByIdAndUpdate(id, task);
+  return updatedTask;
 }
 
 module.exports = {
@@ -57,4 +56,4 @@ module.exports = {
   deleteTask,
   createTask,
   updateTask,
-}
+};

@@ -1,9 +1,9 @@
 const { Router } = require('express');
 
-const { index } = require('./helloworld.controller');
+const { index } = require('./healthcheck.controller');
 
 const router = Router();
 
-router.get('/', index)
+router.get('/', index);
 
 module.exports = router;
