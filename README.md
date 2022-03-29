@@ -3,6 +3,7 @@
 Hello and welcome! This Node.JS project demonstrates a simple architecture building a full API with Node.JS, Express.JS, and MongoDB presents an architectural demo of these features:
 
 - Built with Node.js and Express
+- Mongoose ODM
 - REST API
 
 ## Express Router and Routes
@@ -83,6 +84,7 @@ Response:
 
 - [Git](https://git-scm.com/)
 - [Node.js and npm](nodejs.org) Node >= 16.14.x, npm >= 8.3.x
+- [MongoDB](https://www.mongodb.org/) - Mongo Atlas is a good option
 
 ### Developing
 
