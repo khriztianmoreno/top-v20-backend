@@ -34,7 +34,11 @@ async function handlerDeleteTask(req, res) {
 }
 
 async function handlerCreateTask(req, res) {
-  const newTask = req.body;
+  const newTask = {
+    ...req.body,
+    // eslint-disable-next-line no-underscore-dangle
+    userId: req.user._id,
+  };
 
   if (!newTask.title) {
     res.status(400).json({ message: 'Title is required' });
@@ -44,9 +48,13 @@ async function handlerCreateTask(req, res) {
     res.status(400).json({ message: 'Description is required' });
   }
 
-  const task = await createTask(newTask);
+  try {
+    const task = await createTask(newTask);
 
-  return res.status(201).json(task);
+    return res.status(201).json(task);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 }
 
 async function handlerUpdateTask(req, res) {
