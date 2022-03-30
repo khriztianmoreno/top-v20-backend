@@ -1,5 +1,7 @@
 function index(req, res) {
-  res.send('Hello World!');
+  res.json({
+    message: 'Server runnig',
+  });
 }
 
 module.exports = {
