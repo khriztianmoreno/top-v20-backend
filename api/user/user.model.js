@@ -47,16 +47,14 @@ UserSchema.pre('save', async function (next) {
   const user = this;
   try {
     if (!user.isModified('password')) {
-      return next();
+      next();
     }
-
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(user.password, salt);
 
     user.password = hash;
-    return next(user);
   } catch (error) {
-    return next(error);
+    next(error);
   }
 });
 
