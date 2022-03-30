@@ -1,6 +1,6 @@
 function index(req, res) {
   res.json({
-    message: 'Server runnig',
+    message: 'Server runnig!!',
   });
 }
 
