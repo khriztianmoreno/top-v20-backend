@@ -5,7 +5,7 @@ const Task = require('./task.model');
  * @returns all tasks
  */
 function getAllTask() {
-  return Task.find({}, { title: 1 });
+  return Task.find({});
 }
 
 /**
@@ -46,7 +46,8 @@ function createTask(task) {
  * @returns task updated
  */
 async function updateTask(id, task) {
-  const updatedTask = await Task.findByIdAndUpdate(id, task);
+  const updatedTask = await Task.findByIdAndUpdate(id, task, { new: true });
+  console.log('🚀 ~ file: task.service.js ~ line 50 ~ updateTask ~ updatedTask', updatedTask);
   return updatedTask;
 }
 

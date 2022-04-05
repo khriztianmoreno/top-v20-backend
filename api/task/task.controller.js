@@ -8,6 +8,7 @@ const {
 
 async function handlerAllTask(req, res) {
   const tasks = await getAllTask();
+
   res.json(tasks);
 }
 
@@ -61,7 +62,7 @@ async function handlerUpdateTask(req, res) {
   const { id } = req.params;
   const { body } = req;
 
-  const task = updateTask(id, body);
+  const task = await updateTask(id, body);
 
   if (!task) {
     res.status(404).json({ message: `Task not found with id: ${id}` });
