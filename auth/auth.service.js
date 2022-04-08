@@ -13,7 +13,6 @@ async function validateToken(token) {
     const payload = await jsonwebtoken.verify(token, 'secret_token');
     return payload;
   } catch (error) {
-    console.log('🚀 ~ file: auth.service.js ~ line 13 ~ validateToken ~ error', error);
     return null;
   }
 }
