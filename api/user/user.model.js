@@ -38,6 +38,20 @@ const UserSchema = new mongoose.Schema({
   },
   passwordResetToken: String,
   passwordResetExpires: Date,
+  payment: {
+    customerId: String,
+    cards: [
+      {
+        paymentMethodId: String,
+        brand: String,
+        country: String,
+        exp_month: Number,
+        exp_year: Number,
+        funding: String,
+        last4: String,
+      },
+    ],
+  },
 }, {
   timestamps: true,
   versionKey: false,

@@ -4,6 +4,7 @@
 const healthcheck = require('./api/healthcheck');
 const task = require('./api/task');
 const user = require('./api/user');
+const payment = require('./api/payment');
 const authLocal = require('./auth/local');
 
 function routes(app) {
@@ -11,6 +12,7 @@ function routes(app) {
   app.use('/api/healthcheck', healthcheck);
   app.use('/api/tasks', task);
   app.use('/api/users', user);
+  app.use('/api/payments', payment);
 
   // auth Routes
   app.use('/auth/local', authLocal);
