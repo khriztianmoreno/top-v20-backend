@@ -41,6 +41,8 @@ async function makePayment({ paymentMethod, amount, customer }) {
       confirm: true,
       description: 'Example charge',
       customer: customer.id,
+      // Automatically send receipts when payments are successful
+      receipt_email: customer.email,
     });
 
     return payment;
