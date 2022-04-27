@@ -5,6 +5,7 @@ const {
   createTask,
   updateTask,
 } = require('./task.service');
+const { eventCreateTask } = require('./task.event');
 
 async function handlerAllTask(req, res) {
   const tasks = await getAllTask();
@@ -51,6 +52,9 @@ async function handlerCreateTask(req, res) {
 
   try {
     const task = await createTask(newTask);
+
+    // emitir un evento para que el cliente sepa que se creo una nueva tarea
+    eventCreateTask(task);
 
     return res.status(201).json(task);
   } catch (error) {
