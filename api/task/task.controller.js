@@ -7,10 +7,28 @@ const {
 } = require('./task.service');
 const { eventCreateTask } = require('./task.event');
 
-async function handlerAllTask(req, res) {
-  const tasks = await getAllTask();
+const { redisClient } = require('../../config/database');
 
-  res.json(tasks);
+async function handlerAllTask(req, res) {
+  try {
+    const reply = await redisClient.get(req.originalUrl);
+
+    if (reply) {
+      return res.json(JSON.parse(reply));
+    }
+
+    const tasks = await getAllTask();
+
+    const expires = 60 * 60 * 24; // 24 hours
+
+    await redisClient.set(req.originalUrl, JSON.stringify(tasks), {
+      EX: expires,
+    });
+
+    return res.json(tasks);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 }
 
 async function handlerOneTask(req, res) {

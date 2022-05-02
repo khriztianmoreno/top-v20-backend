@@ -6,7 +6,7 @@ const envFile = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env';
 dotenv.config({ path: envFile });
 
 const configExpress = require('./config/express');
-const connectDB = require('./config/database');
+const { connectDB, redisConnect } = require('./config/database');
 const routes = require('./routes');
 const { connectSocket } = require('./config/socket');
 
@@ -17,6 +17,7 @@ const env = process.env.NODE_ENV;
 
 if (env !== 'test') {
   connectDB();
+  redisConnect();
 }
 
 configExpress(app);
