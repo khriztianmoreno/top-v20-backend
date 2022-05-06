@@ -11,20 +11,25 @@ const { redisClient } = require('../../config/database');
 
 async function handlerAllTask(req, res) {
   try {
+    // 1 verificar si el dato esta en redis
     const reply = await redisClient.get(req.originalUrl);
 
+    // 2 si esta en redis, devolverlo
     if (reply) {
       return res.json(JSON.parse(reply));
     }
 
+    // 3. si no esta en redis, obtenerlo de la base de datos
     const tasks = await getAllTask();
 
     const expires = 60 * 60 * 24; // 24 hours
 
+    // 4. guardarlo en redis
     await redisClient.set(req.originalUrl, JSON.stringify(tasks), {
       EX: expires,
     });
 
+    // 5. devolverlo
     return res.json(tasks);
   } catch (error) {
     return res.status(500).json(error);
